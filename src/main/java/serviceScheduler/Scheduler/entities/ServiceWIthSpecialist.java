@@ -1,7 +1,9 @@
 package serviceScheduler.Scheduler.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Data
@@ -16,8 +18,17 @@ import lombok.*;
 // and duration in Minutes from this Service with specialist
 public class ServiceWIthSpecialist {
 
+    @EmbeddedId
+    private ServiceWithSpecialistId id;
+
+    @ManyToOne
+    @MapsId("serviceId")
+    @JoinColumn(name = "service_id")
     private Service service;
 
+    @ManyToOne
+    @MapsId("specialistId")
+    @JoinColumn(name = "specialist_id")
     private Specialist specialist;
 
     private Integer durationInMinutes;
